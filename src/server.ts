@@ -31,13 +31,36 @@ import { filterImageFromURL, deleteLocalFiles } from './util/util';
 	//! END @TODO1
 
 	app.get('/filteredimage', async (req, res) => {
+<<<<<<< HEAD
 		const image_url = req.query.image_url;
+=======
+		const image_url: string = req.query.image_url;
+		if (!image_url) {
+			res.status(404).send('No Image Url was found');
+		}
+>>>>>>> dev
 		const result = await filterImageFromURL(image_url);
 		res.sendFile(result);
 	});
 
 	// Root Endpoint
 	// Displays a simple message to the user
+<<<<<<< HEAD
+=======
+	app.delete('/delete', async (req, res) => {
+		let images = [];
+		const image_path: string = req.query.image_path;
+		if (!image_path) {
+			res.status(404).send('No Image Url was found');
+		}
+		images.push(image_path);
+		await deleteLocalFiles(images);
+		res.send('Image deleted');
+	});
+
+	// Root Endpoint
+	// Displays a simple message to the user
+>>>>>>> dev
 	app.get('/', async (req, res) => {
 		res.send('try GET /filteredimage?image_url={{}}');
 	});
