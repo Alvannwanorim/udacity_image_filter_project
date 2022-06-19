@@ -30,18 +30,18 @@ import { filterImageFromURL, deleteLocalFiles } from './util/util';
 
 	//! END @TODO1
 
-	app.get('/filteredimage', async (req, res) => {
+	app.get('/filteredimage', async (req: express.Request, res: express.Response) => {
 		const image_url: string = req.query.image_url;
 		if (!image_url) {
 			res.status(404).send('No Image Url was found');
 		}
 		const result = await filterImageFromURL(image_url);
-		res.sendFile(result);
+		res.status(200).sendFile(result);
 	});
 
 	// Root Endpoint
 	// Displays a simple message to the user
-	app.delete('/delete', async (req, res) => {
+	app.delete('/delete', async (req: express.Request, res: express.Response) => {
 		let images = [];
 		const image_path: string = req.query.image_path;
 		if (!image_path) {
@@ -49,13 +49,13 @@ import { filterImageFromURL, deleteLocalFiles } from './util/util';
 		}
 		images.push(image_path);
 		await deleteLocalFiles(images);
-		res.send('Image deleted');
+		res.status(200).send('Image deleted');
 	});
 
 	// Root Endpoint
 	// Displays a simple message to the user
-	app.get('/', async (req, res) => {
-		res.send('try GET /filteredimage?image_url={{}}');
+	app.get('/', async (req: express.Request, res: express.Response) => {
+		res.status(200).send('try GET /filteredimage?image_url={{}}');
 	});
 
 	// Start the Server
